@@ -1,4 +1,4 @@
-# cs-470-reversi-python-client
+# cs470-connectFour-client-server
 
 A Python 3 client for the BYU CS 470 Reversi lab. All that you need to change for your project is the `make_move` function in the AIPlayer class in the player.py script. See comment there for information on useful functionality.
 
