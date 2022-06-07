@@ -39,7 +39,7 @@ class ClientConnection:
         self.update(roundNum, state, timesLeft)
         response = self.getFromClient(1024)
         respStr = response.decode()
-        move = int(str(respStr[0]))
+        move = int(str(respStr[-2]))
         return move
 
     def gameOver(self, state):
@@ -64,7 +64,7 @@ class GameInstance:
         self.state = game.GameState(game.generateNewBoard(), 1)
         self.gui = game.GameGUI()
         self.players = [ClientConnection(1, min_per_player), ClientConnection(2, min_per_player)]
-        time.sleep(0.5)
+        time.sleep(0.05)
 
     def play(self):
         round = 0
@@ -74,8 +74,9 @@ class GameInstance:
 
             startTime = time.time()
 
+            time.sleep(0.05)
             move = self.players[player_num - 1].takeTurn(round, self.state, self.timeLeft)
-            time.sleep(0.1)
+            time.sleep(0.05)
 
             endTime = time.time()
             self.timeLeft[player_num - 1] -= (endTime - startTime)
@@ -94,7 +95,7 @@ class GameInstance:
 
             self.players[0].update(round, self.state, self.timeLeft)
             self.players[1].update(round, self.state, self.timeLeft)
-            time.sleep(0.05)
+            time.sleep(0.1)
 
             if self.state.is_game_over():
                 winner = 1 if self.state.is_winning_state(1) else 2
@@ -115,7 +116,14 @@ class GameInstance:
 
 
 if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        sys.argv.append('10')
     minutes_per_player = int(sys.argv[1])
 
     currGame = GameInstance(minutes_per_player)
-    currGame.play()
+    try:
+        currGame.play()
+    except Exception as err:
+        print(err)
+        while True:
+            pass

@@ -61,6 +61,10 @@ class GameInstance:
 
 
 if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        sys.argv.append('localhost')
+        sys.argv.append('1')
+
     server_address = sys.argv[1]
     bot_move_number = int(sys.argv[2])
     if len(sys.argv) > 3:

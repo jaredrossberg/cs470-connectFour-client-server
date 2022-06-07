@@ -33,6 +33,7 @@ class GameState:
 
             else:
                 err = 'Invalid move by player {}. Column {}'.format(self.turn, move)
+                print(self.board)
                 raise Exception(err)
 
     def is_game_over(self):
